@@ -1,0 +1,6 @@
+{
+  "name": "LabDrop",
+  "description": "Ephemeral, login-free file sharing and real-time chat between devices on any network via 4-digit PIN.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

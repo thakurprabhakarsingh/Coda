@@ -1,0 +1,254 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGlow" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#2a2824" />
+      <stop offset="45%" stop-color="#181816" />
+      <stop offset="100%" stop-color="#0c0d0e" />
+    </radialGradient>
+
+    <!-- Warm Device Glow Filter -->
+    <filter id="neonGlowOrange" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur1" />
+      <feGaussianBlur stdDeviation="18" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="bubbleShadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+
+    <!-- Gradients for Devices -->
+    <linearGradient id="phoneBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb347" />
+      <stop offset="50%" stop-color="#ff7300" />
+      <stop offset="100%" stop-color="#ff4500" />
+    </linearGradient>
+
+    <linearGradient id="phoneScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c3044" />
+      <stop offset="50%" stop-color="#1c1f2e" />
+      <stop offset="100%" stop-color="#12131c" />
+    </linearGradient>
+
+    <linearGradient id="glassSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.28)" />
+      <stop offset="35%" stop-color="rgba(255,255,255,0.06)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </linearGradient>
+
+    <!-- 3D Speech Bubble Gradients -->
+    <!-- Red/Coral Bubble -->
+    <radialGradient id="bubbleCoral" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ff8e8e" />
+      <stop offset="35%" stop-color="#ff4d4d" />
+      <stop offset="85%" stop-color="#d61f38" />
+      <stop offset="100%" stop-color="#9e1022" />
+    </radialGradient>
+
+    <!-- Yellow/Amber Bubble -->
+    <radialGradient id="bubbleYellow" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fff59d" />
+      <stop offset="40%" stop-color="#ffca28" />
+      <stop offset="85%" stop-color="#f57c00" />
+      <stop offset="100%" stop-color="#b25300" />
+    </radialGradient>
+
+    <!-- Pink/Rose Bubble -->
+    <radialGradient id="bubblePink" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fbcfe8" />
+      <stop offset="40%" stop-color="#f472b6" />
+      <stop offset="85%" stop-color="#db2777" />
+      <stop offset="100%" stop-color="#831843" />
+    </radialGradient>
+
+    <!-- Teal/Cyan Bubble -->
+    <radialGradient id="bubbleTeal" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#a5f3fc" />
+      <stop offset="40%" stop-color="#22d3ee" />
+      <stop offset="85%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#075985" />
+    </radialGradient>
+
+    <!-- Orange Bubble -->
+    <radialGradient id="bubbleOrange" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fed7aa" />
+      <stop offset="40%" stop-color="#fb923c" />
+      <stop offset="85%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#9a3412" />
+    </radialGradient>
+
+    <!-- Mini Peach Bubble -->
+    <radialGradient id="bubblePeach" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffedd5" />
+      <stop offset="40%" stop-color="#f87171" />
+      <stop offset="85%" stop-color="#dc2626" />
+      <stop offset="100%" stop-color="#7f1d1d" />
+    </radialGradient>
+
+    <!-- Ribbon Trails -->
+    <linearGradient id="streamGreen" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="50%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="streamOrange" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="50%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+
+    <!-- Clip Paths for Screen Sheen -->
+    <clipPath id="leftPhoneClip">
+      <rect x="18" y="22" width="76" height="156" rx="14" />
+    </clipPath>
+
+    <clipPath id="rightTabletClip">
+      <rect x="20" y="20" width="130" height="120" rx="14" />
+    </clipPath>
+  </defs>
+
+  <!-- Base Squircle -->
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="url(#bgGlow)" />
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2" />
+
+  <!-- Ambient Bokeh & Sparkles -->
+  <g opacity="0.6">
+    <circle cx="80" cy="300" r="14" fill="#ff7844" opacity="0.3" filter="blur(6px)" />
+    <circle cx="220" cy="120" r="10" fill="#fbbf24" opacity="0.4" filter="blur(4px)" />
+    <circle cx="440" cy="320" r="18" fill="#34d399" opacity="0.25" filter="blur(6px)" />
+    <circle cx="360" cy="100" r="12" fill="#f472b6" opacity="0.3" filter="blur(5px)" />
+    <circle cx="160" cy="360" r="8" fill="#ff4d4d" opacity="0.4" />
+    <circle cx="290" cy="380" r="10" fill="#ffedd5" opacity="0.35" />
+    <!-- Sparkle Stars -->
+    <path d="M195 190 Q195 200 205 200 Q195 200 195 210 Q195 200 185 200 Q195 200 195 190 Z" fill="#fff" opacity="0.85" />
+    <path d="M420 280 Q420 287 427 287 Q420 287 420 294 Q420 287 413 287 Q420 287 420 280 Z" fill="#ffd54f" opacity="0.9" />
+    <path d="M360 170 Q360 176 366 176 Q360 176 360 182 Q360 176 354 176 Q360 176 360 170 Z" fill="#fff" opacity="0.75" />
+    <circle cx="110" cy="220" r="3.5" fill="#ffd166" />
+    <circle cx="420" cy="180" r="4" fill="#a7f3d0" />
+    <circle cx="240" cy="340" r="3" fill="#ffffff" />
+  </g>
+
+  <!-- LEFT PHONE (Tilted) -->
+  <g transform="translate(130, 260) rotate(-16) translate(-56, -100)">
+    <!-- Neon Outer Halo -->
+    <rect x="4" y="4" width="104" height="192" rx="22" fill="none" stroke="#ff7a00" stroke-width="12" opacity="0.4" filter="url(#neonGlowOrange)" />
+    <rect x="7" y="7" width="98" height="186" rx="20" fill="none" stroke="#ff9900" stroke-width="6" opacity="0.8" />
+    <rect x="9" y="9" width="94" height="182" rx="18" fill="#1e1814" stroke="url(#phoneBorder)" stroke-width="4" />
+
+    <!-- Screen Bezel -->
+    <rect x="18" y="22" width="76" height="156" rx="12" fill="url(#phoneScreen)" />
+
+    <!-- Glass Reflection Sheen -->
+    <path d="M18 22 L94 22 L94 95 L18 135 Z" fill="url(#glassSheen)" clip-path="url(#leftPhoneClip)" />
+
+    <!-- Notch & Home Indicator -->
+    <rect x="42" y="27" width="28" height="4" rx="2" fill="#0d0e14" />
+    <circle cx="56" cy="165" r="9" fill="none" stroke="rgba(255, 170, 50, 0.7)" stroke-width="2" />
+    <circle cx="56" cy="165" r="5" fill="#ff9900" opacity="0.5" />
+  </g>
+
+  <!-- RIGHT TABLET / DEVICE (Tilted slightly right) -->
+  <g transform="translate(370, 290) rotate(10) translate(-85, -80)">
+    <!-- Neon Halo -->
+    <rect x="6" y="6" width="158" height="148" rx="22" fill="none" stroke="#ff7a00" stroke-width="12" opacity="0.35" filter="url(#neonGlowOrange)" />
+    <rect x="10" y="10" width="150" height="140" rx="19" fill="none" stroke="#ff9e1f" stroke-width="6" opacity="0.75" />
+    <rect x="12" y="12" width="146" height="136" rx="17" fill="#1b1916" stroke="url(#phoneBorder)" stroke-width="4" />
+
+    <!-- Tablet Screen -->
+    <rect x="22" y="22" width="126" height="116" rx="11" fill="url(#phoneScreen)" />
+    
+    <!-- Sheen -->
+    <path d="M22 22 L148 22 L148 70 L22 110 Z" fill="url(#glassSheen)" />
+
+    <!-- Notch / Camera -->
+    <circle cx="85" cy="28" r="2.5" fill="#3a4055" />
+  </g>
+
+  <!-- FLOWING ENERGY SWIRLS / RIBBONS -->
+  <g filter="url(#neonGlowOrange)" opacity="0.95">
+    <!-- Green Swirl -->
+    <path d="M135 300 C 170 230, 230 250, 280 270 C 330 290, 395 315, 385 240 C 380 200, 340 185, 305 210 C 275 230, 250 280, 340 315"
+          fill="none" stroke="url(#streamGreen)" stroke-width="8" stroke-linecap="round" />
+
+    <!-- Inner Emerald Streak -->
+    <path d="M145 292 C 180 238, 235 252, 280 268 C 325 284, 385 300, 375 235 C 370 205, 340 195, 312 215"
+          fill="none" stroke="#a7f3d0" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Orange / Yellow Ribbon Stream -->
+    <path d="M140 280 C 185 245, 230 240, 275 250 C 320 260, 360 270, 370 215 C 375 185, 345 175, 315 190"
+          fill="none" stroke="url(#streamOrange)" stroke-width="6" stroke-linecap="round" />
+    <path d="M142 278 C 185 244, 230 239, 275 249 C 320 259, 360 269, 370 214"
+          fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity="0.8" />
+  </g>
+
+  <!-- 3D FLOATING SPEECH BUBBLES -->
+
+  <!-- 1. Small Peach Bubble (near left phone) -->
+  <g filter="url(#bubbleShadow)" transform="translate(165, 220)">
+    <path d="M0 22 C0 10, 10 0, 22 0 C34 0, 44 10, 44 22 C44 34, 34 44, 22 44 C16 44, 11 42, 7 38 L-4 44 L-1 33 C-3 29, 0 25, 0 22 Z"
+          fill="url(#bubblePeach)" />
+    <!-- Highlight Gloss -->
+    <ellipse cx="16" cy="12" rx="9" ry="5" fill="#ffffff" opacity="0.55" transform="rotate(-15, 16, 12)" />
+  </g>
+
+  <!-- 2. Big Main Coral / Red 3D Bubble (Centerpiece) -->
+  <g filter="url(#bubbleShadow)" transform="translate(205, 175)">
+    <path d="M12 40 C12 18, 30 0, 52 0 C74 0, 92 18, 92 40 C92 62, 74 80, 52 80 C42 80, 32 76, 25 70 L3 82 L9 60 C4 54, 12 47, 12 40 Z"
+          fill="url(#bubbleCoral)" />
+    <!-- 3D Gloss Highlight -->
+    <ellipse cx="44" cy="22" rx="22" ry="12" fill="#ffffff" opacity="0.58" transform="rotate(-12, 44, 22)" />
+    <circle cx="30" cy="18" r="4.5" fill="#ffffff" opacity="0.75" />
+    <!-- Ambient Inner Reflection -->
+    <ellipse cx="60" cy="62" rx="14" ry="6" fill="#ffa4a4" opacity="0.3" />
+  </g>
+
+  <!-- 3. Top Yellow / Amber Glossy Bubble -->
+  <g filter="url(#bubbleShadow)" transform="translate(265, 155)">
+    <path d="M8 30 C8 13, 22 0, 38 0 C54 0, 68 13, 68 30 C68 47, 54 60, 38 60 C30 60, 22 57, 17 52 L3 61 L6 45 C2 40, 8 35, 8 30 Z"
+          fill="url(#bubbleYellow)" />
+    <!-- Highlight Gloss -->
+    <ellipse cx="32" cy="16" rx="15" ry="8" fill="#ffffff" opacity="0.65" transform="rotate(-10, 32, 16)" />
+    <circle cx="23" cy="14" r="3.5" fill="#ffffff" opacity="0.8" />
+  </g>
+
+  <!-- 4. Pink / Rose 3D Bubble (Below Coral) -->
+  <g filter="url(#bubbleShadow)" transform="translate(250, 225)">
+    <path d="M6 28 C6 12, 20 0, 36 0 C52 0, 66 12, 66 28 C66 44, 52 56, 36 56 C29 56, 22 53, 17 48 L2 57 L6 42 C1 38, 6 33, 6 28 Z"
+          fill="url(#bubblePink)" />
+    <!-- Gloss -->
+    <ellipse cx="30" cy="15" rx="14" ry="7" fill="#ffffff" opacity="0.6" transform="rotate(-12, 30, 15)" />
+    <circle cx="20" cy="13" r="3" fill="#ffffff" opacity="0.8" />
+  </g>
+
+  <!-- 5. Teal / Cyan Bubble (Lower right near swirl) -->
+  <g filter="url(#bubbleShadow)" transform="translate(295, 260)">
+    <path d="M5 24 C5 10, 17 0, 32 0 C47 0, 58 10, 58 24 C58 38, 47 48, 32 48 C26 48, 20 45, 16 41 L3 49 L6 36 C1 32, 5 28, 5 24 Z"
+          fill="url(#bubbleTeal)" />
+    <!-- Gloss -->
+    <ellipse cx="27" cy="13" rx="12" ry="6" fill="#ffffff" opacity="0.65" transform="rotate(-10, 27, 13)" />
+  </g>
+
+  <!-- 6. Small Orange Bubble (Right side) -->
+  <g filter="url(#bubbleShadow)" transform="translate(340, 265)">
+    <path d="M4 18 C4 8, 14 0, 25 0 C36 0, 46 8, 46 18 C46 28, 36 36, 25 36 C20 36, 16 34, 12 31 L2 37 L5 27 C1 24, 4 21, 4 18 Z"
+          fill="url(#bubbleOrange)" />
+    <!-- Gloss -->
+    <ellipse cx="21" cy="10" rx="9" ry="4.5" fill="#ffffff" opacity="0.65" transform="rotate(-10, 21, 10)" />
+  </g>
+
+  <!-- Glowing Droplets & Floating Sparks -->
+  <circle cx="225" cy="315" r="5" fill="#38bdf8" opacity="0.75" />
+  <circle cx="224" cy="314" r="2" fill="#ffffff" opacity="0.9" />
+
+  <circle cx="310" cy="330" r="4.5" fill="#34d399" opacity="0.8" />
+  <circle cx="309" cy="329" r="1.8" fill="#ffffff" opacity="0.9" />
+
+  <circle cx="380" cy="275" r="4" fill="#fb923c" opacity="0.85" />
+  <circle cx="265" cy="125" r="3.5" fill="#fde047" opacity="0.9" />
+</svg>

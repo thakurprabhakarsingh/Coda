@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>codaaa - Instant Ephemeral File Transfer & Chat</title>
+  <meta name="description" content="codaaa - Instant, login-free file sharing and real-time chat between devices on any network via 4-digit PIN." />
+  <meta property="og:title" content="codaaa - Instant Ephemeral File Transfer & Chat" />
+  <meta property="og:description" content="codaaa - Instant, login-free file sharing and real-time chat between devices on any network via 4-digit PIN." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app" class="app-layout">
+    
+    <!-- Top Navbar -->
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="brand" id="brand-logo" title="Back to Lobby">
+          <div class="brand-icon">
+            <img src="/logo.svg" alt="codaaa logo" class="brand-logo-img" width="34" height="34">
+          </div>
+          <span class="brand-name">codaaa</span>
+        </div>
+
+        <div class="nav-right">
+          <button type="button" id="btn-theme-toggle" class="btn-theme-toggle" title="Switch between Normal (White) and Night (Dark) Theme" aria-label="Switch Theme">
+            <svg class="theme-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <svg class="theme-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <span id="theme-btn-text" class="theme-btn-text">Night</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- 1. COMPACT, GORGEOUS LOBBY VIEW -->
+      <section id="lobby-view" class="view active">
+        <div class="lobby-wrapper">
+          
+          <!-- Punchy Hero Header -->
+          <div class="hero-box">
+            <h1 class="hero-heading">Instant Direct Transfer</h1>
+          </div>
+
+          <!-- Segmented Tab Switcher (Send / Receive) -->
+          <div class="lobby-tabs" role="tablist">
+            <button type="button" id="tab-btn-send" class="lobby-tab active" role="tab" aria-selected="true">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <span>Send</span>
+            </button>
+            <button type="button" id="tab-btn-receive" class="lobby-tab" role="tab" aria-selected="false">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Receive</span>
+            </button>
+          </div>
+
+          <!-- Main Interactive Hub Card -->
+          <div class="hub-card">
+            
+            <!-- PANEL 1: SEND -->
+            <div id="panel-send" class="tab-panel active">
+              <div class="panel-header">
+                <div class="panel-icon-circle send-glow">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Start a Session</h2>
+              </div>
+
+              <button id="btn-create-room" class="btn btn-emerald btn-lg btn-full btn-glow">
+                <span>Create 4-Digit Room</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+
+            <!-- PANEL 2: RECEIVE -->
+            <div id="panel-receive" class="tab-panel">
+              <div class="panel-header">
+                <div class="panel-icon-circle receive-glow">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Enter 4-Digit PIN</h2>
+              </div>
+
+              <form id="join-form" class="join-form">
+                <div class="pin-grid">
+                  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-digit-box" data-index="0" autocomplete="off" placeholder="•">
+                  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-digit-box" data-index="1" autocomplete="off" placeholder="•">
+                  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-digit-box" data-index="2" autocomplete="off" placeholder="•">
+                  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-digit-box" data-index="3" autocomplete="off" placeholder="•">
+                </div>
+
+                <div class="paste-row">
+                  <button type="button" id="btn-paste-pin" class="btn-paste">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span>Paste PIN</span>
+                  </button>
+                </div>
+
+                <div id="join-error-msg" class="error-banner hidden"></div>
+
+                <button type="submit" id="btn-join-room" class="btn btn-cyan btn-lg btn-full btn-glow">
+                  <span>Connect & Receive</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                </button>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Group Chat Dedicated Card (Matches Canva Mockup) -->
+          <div class="group-chat-card">
+            <h2 class="group-card-title">Group Chat</h2>
+            <button type="button" id="btn-open-group-modal" class="btn btn-emerald btn-lg btn-full btn-glow">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Create Group Chat</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 2. PIN WAITING VIEW (Sender) -->
+      <section id="pin-view" class="view">
+        <div class="pin-view-wrapper">
+          <div class="pin-dialog-card">
+            
+            <div class="pin-status-pill">
+              <span class="pulse-light"></span>
+              <span>Room Created</span>
+            </div>
+
+            <p class="pin-hint-text">Ask receiver to enter this 4-digit PIN:</p>
+
+            <div class="pin-banner">
+              <div class="pin-code-text" id="display-pin">----</div>
+              <button id="btn-copy-pin" class="btn-icon-copy" title="Copy PIN">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+            </div>
+
+            <div class="waiting-indicator">
+              <div class="spinner-ring"></div>
+              <span>Waiting for receiver to join...</span>
+            </div>
+
+            <div class="share-box">
+              <input type="text" id="share-link-input" readonly>
+              <button id="btn-copy-link" class="btn btn-sm btn-ghost">Copy Link</button>
+            </div>
+
+            <button id="btn-cancel-room" class="btn btn-outline btn-full">
+              <span>Cancel & Return</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. CHAT & FILE TRANSFER SCREEN (Connected) -->
+      <section id="chat-view" class="view">
+        <div class="chat-wrapper">
+          
+          <!-- Chat Header Bar -->
+          <div class="chat-topbar">
+            <div class="topbar-left">
+              <div class="active-pin-tag">
+                <span class="online-dot"></span>
+                <span class="pin-hash">#</span>
+                <span id="active-pin-badge">----</span>
+              </div>
+              <span id="group-title-badge" class="group-title-tag hidden">Group</span>
+            </div>
+
+            <div class="topbar-right">
+              <button type="button" id="btn-show-members" class="btn-topbar-call btn-call-members" title="Show Group Members" aria-label="Show Group Members">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span class="call-btn-text">Members</span>
+                <span id="members-count-badge" class="badge-members-count">1</span>
+              </button>
+              <button id="btn-audio-call" class="btn-topbar-call" title="Start Voice Call" aria-label="Start Voice Call">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span class="call-btn-text">Call</span>
+              </button>
+              <button id="btn-video-call" class="btn-topbar-call btn-call-video" title="Start Video Call" aria-label="Start Video Call">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m22 8-6 4 6 4V8Z"></path>
+                  <rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect>
+                </svg>
+                <span class="call-btn-text">Video</span>
+              </button>
+              <button type="button" id="btn-chat-theme-toggle" class="btn-topbar-call" title="Switch Theme (Normal / Night)" aria-label="Switch Theme">
+                <svg class="theme-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                </svg>
+                <svg class="theme-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+                <span class="call-btn-text" id="chat-theme-btn-text">Night</span>
+              </button>
+              <button id="btn-leave-room" class="btn-exit" title="Disconnect & destroy room">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span>Leave</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Messages Stream with Drag & Drop Dropzone -->
+          <div id="messages-container" class="messages-stream">
+            <div class="drop-overlay" id="drop-overlay">
+              <div class="drop-card">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <h3>Drop files here</h3>
+                <p>Supports files up to 100MB</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Typing indicator bar -->
+          <div id="typing-bar" class="typing-notice hidden">
+            <span>Peer is typing...</span>
+          </div>
+
+          <!-- Active Reply Bar -->
+          <div id="reply-bar" class="reply-bar hidden">
+            <div class="reply-bar-indicator"></div>
+            <div class="reply-bar-content">
+              <span class="reply-bar-sender" id="reply-bar-sender">Replying to message</span>
+              <span class="reply-bar-text" id="reply-bar-text">...</span>
+            </div>
+            <button type="button" id="btn-cancel-reply" class="btn-cancel-reply" title="Cancel reply">&times;</button>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div class="chat-input-bar">
+            <input type="file" id="file-input" class="hidden-input" multiple>
+            <input type="file" id="image-input" class="hidden-input" accept="image/*" multiple>
+
+            <button type="button" id="btn-attach-file" class="btn-attach" title="Attach file (up to 100MB)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+            </button>
+            <button type="button" id="btn-attach-image" class="btn-attach" title="Send image">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            </button>
+
+            <textarea 
+              id="chat-textarea" 
+              placeholder="Message or drop file..." 
+              rows="1"
+              maxlength="10000"
+            ></textarea>
+
+            <button type="button" id="btn-send-message" class="btn-send-action" title="Send message">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Global Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox-modal hidden">
+      <div class="lightbox-backdrop"></div>
+      <div class="lightbox-content">
+        <button id="lightbox-close" class="lightbox-close-btn">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged view">
+        <div class="lightbox-footer">
+          <span id="lightbox-filename"></span>
+          <a id="lightbox-download" class="btn btn-sm btn-emerald" download>Download</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incoming / Outgoing Call Ringing Banner/Modal -->
+    <div id="call-ringing-modal" class="call-ringing-dialog hidden">
+      <div class="call-ringing-card">
+        <div class="call-avatar-pulse" id="call-ringing-avatar">
+          <div class="call-pulse-circle"></div>
+          <div class="call-icon-holder" id="call-ringing-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div class="call-ringing-details">
+          <h3 class="call-ringing-title" id="call-ringing-title">Incoming Video Call</h3>
+          <p class="call-ringing-sub" id="call-ringing-status">Connecting with peer...</p>
+        </div>
+
+        <div class="call-ringing-actions">
+          <button id="btn-call-decline" class="btn-call-action btn-call-hangup" title="Decline">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span id="call-decline-label">Decline</span>
+          </button>
+          <button id="btn-call-accept" class="btn-call-action btn-call-answer" title="Accept Call">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Accept</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Call In-Screen Overlay / Modal -->
+    <div id="active-call-modal" class="active-call-overlay hidden">
+      <div class="active-call-container">
+        
+        <!-- Header Info Bar -->
+        <div class="active-call-header">
+          <div class="active-call-meta">
+            <div class="call-live-indicator">
+              <span class="live-blink"></span>
+              <span id="active-call-type-badge">VIDEO CALL</span>
+            </div>
+            <div class="call-timer" id="active-call-timer">00:00</div>
+          </div>
+          <button id="btn-call-minimize" class="btn-call-ctrl btn-call-ctrl-sm" title="Minimize call overlay">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m4 14 6-6 6 6"></path></svg>
+          </button>
+        </div>
+
+        <!-- Video Display Stage -->
+        <div class="call-video-stage" id="call-video-stage">
+          <!-- Remote Peer Video -->
+          <div class="remote-video-container" id="remote-video-box">
+            <video id="remote-video-elem" autoplay playsinline></video>
+            <!-- Voice-only or Camera-off Avatar Placeholder -->
+            <div class="video-avatar-fallback hidden" id="remote-avatar-fallback">
+              <div class="avatar-circle">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <span class="avatar-label">Peer</span>
+            </div>
+            <div class="remote-status-badge" id="remote-status-badge">Peer Connected</div>
+          </div>
+
+          <!-- Local Self Video (Picture-in-Picture) -->
+          <div class="local-video-container" id="local-video-box">
+            <video id="local-video-elem" autoplay playsinline muted></video>
+            <div class="local-avatar-fallback hidden" id="local-avatar-fallback">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="local-pip-label">You</span>
+          </div>
+        </div>
+
+        <!-- Call In-Progress Controls Bar -->
+        <div class="active-call-controls">
+          <button id="btn-toggle-mic" class="btn-call-ctrl" title="Mute / Unmute Microphone">
+            <svg id="icon-mic-on" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+            <svg id="icon-mic-off" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="2" y1="2" x2="22" y2="22"></line>
+              <path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"></path>
+              <path d="M5 10v2a7 7 0 0 0 12 5"></path>
+              <path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"></path>
+              <path d="M9 9v3a3 3 0 0 0 5.12 2.12"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+          </button>
+
+          <button id="btn-toggle-video" class="btn-call-ctrl" title="Turn Camera On / Off">
+            <svg id="icon-cam-on" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m22 8-6 4 6 4V8Z"></path>
+              <rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect>
+            </svg>
+            <svg id="icon-cam-off" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="2" y1="2" x2="22" y2="22"></line>
+              <path d="m16 16 6 4V8l-6 4"></path>
+              <path d="M2 6h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6"></path>
+            </svg>
+          </button>
+
+          <button id="btn-switch-camera" class="btn-call-ctrl" title="Flip Camera" style="display: none;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0-4.418-3.582-8-8-8s-8 3.582-8 8c0 1.956.702 3.748 1.874 5.143L4 18h5v-5l-1.803 1.803A5.965 5.965 0 0 1 6 10c0-3.314 2.686-6 6-6s6 2.686 6 6-2.686 6-6 6c-1.127 0-2.18-.31-3.08-.853L7.5 18.57A7.95 7.95 0 0 0 12 20c4.418 0 8-3.582 8-8z"></path>
+            </svg>
+          </button>
+
+          <button id="btn-end-call" class="btn-call-ctrl btn-call-hangup" title="End Call">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"></path>
+              <line x1="2" y1="2" x2="22" y2="22"></line>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- E2EE Safety Code Verification Modal -->
+    <div id="e2ee-modal" class="modal-dialog hidden">
+      <div class="modal-backdrop" id="e2ee-backdrop"></div>
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-badge-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title">E2EE Safety Number</h3>
+            <p class="modal-subtitle">AES-256-GCM + ECDH P-256</p>
+          </div>
+          <button id="e2ee-modal-close" class="modal-close-btn">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+          <p class="modal-info-text">
+            Compare this safety code with your peer to verify zero-knowledge encryption:
+          </p>
+          
+          <div class="safety-fingerprint-box">
+            <div class="fingerprint-digits" id="modal-safety-code">•••• •••• •••• ••••</div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="btn-copy-safety-code" class="btn btn-sm btn-outline">Copy Code</button>
+          <button id="btn-close-e2ee-modal" class="btn btn-sm btn-emerald">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group Chat Create & Reserve Modal -->
+    <div id="group-chat-modal" class="modal-dialog hidden">
+      <div class="modal-backdrop" id="group-modal-backdrop"></div>
+      <div class="modal-card group-modal-card">
+        <div class="modal-header">
+          <div class="modal-badge-icon group-badge-emerald">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title">Group Chat</h3>
+            <p class="modal-subtitle">Multi-User Room & Call</p>
+          </div>
+          <button id="group-modal-close-btn" class="modal-close-btn">&times;</button>
+        </div>
+
+        <!-- Segmented Tab Switcher (Create vs Reserve/Join) -->
+        <div class="group-tabs" role="tablist">
+          <button type="button" id="tab-group-create" class="group-tab active" role="tab">Create Group</button>
+          <button type="button" id="tab-group-reserve" class="group-tab" role="tab">Reserve / Join Group</button>
+        </div>
+
+        <div class="group-modal-body">
+          <!-- PANEL 1: Create Group -->
+          <div id="panel-group-create" class="group-panel active">
+            <div class="group-field">
+              <label for="input-creator-name" class="group-label">Your Name <span class="group-req">*</span></label>
+              <input type="text" id="input-creator-name" class="group-input" placeholder="Enter your name (e.g. Rahul)" maxlength="25" autocomplete="off">
+            </div>
+
+            <div class="group-field">
+              <label for="input-group-title" class="group-label">Group Name (Optional)</label>
+              <input type="text" id="input-group-title" class="group-input" placeholder="e.g. Squad / Team" maxlength="35" autocomplete="off">
+            </div>
+
+            <div id="group-create-error" class="error-banner hidden"></div>
+
+            <button type="button" id="btn-submit-create-group" class="btn btn-emerald btn-lg btn-full btn-glow">
+              <span>Create Group & Get 4-Digit Code</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+
+          <!-- PANEL 2: Reserve / Join Group -->
+          <div id="panel-group-reserve" class="group-panel">
+            <div class="group-field">
+              <label for="input-joiner-name" class="group-label">Your Name <span class="group-req">*</span></label>
+              <input type="text" id="input-joiner-name" class="group-input" placeholder="Enter your name (e.g. Priya)" maxlength="25" autocomplete="off">
+            </div>
+
+            <div class="group-field">
+              <label for="input-group-code" class="group-label">4-Digit Group PIN Code <span class="group-req">*</span></label>
+              <input type="text" inputmode="numeric" id="input-group-code" class="group-input group-code-input" placeholder="Enter 4-digit code" maxlength="4" autocomplete="off">
+            </div>
+
+            <div id="group-reserve-error" class="error-banner hidden"></div>
+
+            <button type="button" id="btn-submit-join-group" class="btn btn-cyan btn-lg btn-full btn-glow">
+              <span>Reserve & Join Group</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show Group Members Drawer / Modal -->
+    <div id="group-members-modal" class="modal-dialog hidden">
+      <div class="modal-backdrop" id="members-modal-backdrop"></div>
+      <div class="modal-card members-modal-card">
+        <div class="modal-header">
+          <div class="modal-badge-icon group-badge-emerald">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title" id="members-modal-group-name">Group Members</h3>
+            <p class="modal-subtitle" id="members-modal-subtitle">Active members in room</p>
+          </div>
+          <button id="members-modal-close" class="modal-close-btn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="members-pin-share-card">
+            <div>
+              <div class="members-pin-label">Group 4-Digit Code:</div>
+              <div class="members-pin-display" id="members-room-pin">----</div>
+            </div>
+            <button type="button" id="btn-copy-group-pin" class="btn btn-sm btn-ghost">Copy Code</button>
+          </div>
+
+          <div class="members-list-wrapper">
+            <div class="members-list-header">
+              <span>Active Members (<span id="members-list-count">1</span>)</span>
+            </div>
+            <div id="group-members-list" class="members-items-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="btn-close-members-modal" class="btn btn-sm btn-emerald">Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Socket.io client script & CSP-compliant external fallback -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/socket-fallback.js"></script>
+  <script src="/script.js"></script>
+</body>
+</html>
